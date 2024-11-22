@@ -14,12 +14,12 @@ export class AgoraTokenGenerator {
     private pubVideoPrivilegeExpireInSeconds: number;
     private pubDataStreamPrivilegeExpireInSeconds: number;
 
-    constructor(channelName: string, uid: number, account: string) {
+    constructor(channelName: string, uid: number, account?: string | undefined) {
         this.appId = process.env.AGORA_APP_ID || '';
         this.appCertificate = process.env.AGORA_APP_CERTIFICATE || '';
         this.channelName = channelName;
         this.uid = uid;
-        this.account = account;
+        this.account = account || '';
         this.role = RtcRole.PUBLISHER;
         this.tokenExpirationInSecond = 3600;
         this.privilegeExpirationInSecond = 3600;

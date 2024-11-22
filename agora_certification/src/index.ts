@@ -17,7 +17,7 @@ app.use((_, res, next) => {
 
 // BadRequestのバリデーションをミドルウェアに移動
 app.use((req, res, next) => {
-    if (req.body.channelName === undefined || req.body.uid === undefined || req.body.account === undefined) {
+    if (req.body.channelName === undefined || req.body.uid === undefined) {
         res.status(400).json({ error: 'Bad Request' });
         return;
     }
@@ -26,9 +26,9 @@ app.use((req, res, next) => {
 
 // 各トークンを取得するエンドポイント
 app.post('/api/tokenWithUid', (req, res) => {
-    const { channelName, uid, account } = req.body;
+    const { channelName, uid } = req.body;
     try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
+        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid);
         const token = agoraTokenGenerator.generateTokenWithUid();
         res.status(200).json({ token });
     } catch (error) {
@@ -50,9 +50,9 @@ app.post('/api/tokenWithUserAccount', (req, res) => {
 });
 
 app.post('/api/tokenWithUidAndPrivilege', (req, res) => {
-    const { channelName, uid, account } = req.body;
+    const { channelName, uid } = req.body;
     try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
+        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid);
         const token = agoraTokenGenerator.generateTokenWithUidAndPrivilege();
         res.status(200).json({ token });
     } catch (error) {
