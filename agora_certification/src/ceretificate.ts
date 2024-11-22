@@ -5,28 +5,28 @@ export class AgoraTokenGenerator {
     private appCertificate: string;
     private channelName: string;
     private uid: number;
-    private account: string;
+    // private account: string;
     private role: RtcRole;
     private tokenExpirationInSecond: number;
     private privilegeExpirationInSecond: number;
-    private joinChannelPrivilegeExpireInSeconds: number;
-    private pubAudioPrivilegeExpireInSeconds: number;
-    private pubVideoPrivilegeExpireInSeconds: number;
-    private pubDataStreamPrivilegeExpireInSeconds: number;
+    // private joinChannelPrivilegeExpireInSeconds: number;
+    // private pubAudioPrivilegeExpireInSeconds: number;
+    // private pubVideoPrivilegeExpireInSeconds: number;
+    // private pubDataStreamPrivilegeExpireInSeconds: number;
 
     constructor(channelName: string, uid: number, account?: string | undefined) {
         this.appId = process.env.AGORA_APP_ID || '';
         this.appCertificate = process.env.AGORA_APP_CERTIFICATE || '';
         this.channelName = channelName;
         this.uid = uid;
-        this.account = account || '';
+        // this.account = account || '';
         this.role = RtcRole.PUBLISHER;
         this.tokenExpirationInSecond = 3600;
         this.privilegeExpirationInSecond = 3600;
-        this.joinChannelPrivilegeExpireInSeconds = 3600;
-        this.pubAudioPrivilegeExpireInSeconds = 3600;
-        this.pubVideoPrivilegeExpireInSeconds = 3600;
-        this.pubDataStreamPrivilegeExpireInSeconds = 3600;
+        // this.joinChannelPrivilegeExpireInSeconds = 3600;
+        // this.pubAudioPrivilegeExpireInSeconds = 3600;
+        // this.pubVideoPrivilegeExpireInSeconds = 3600;
+        // this.pubDataStreamPrivilegeExpireInSeconds = 3600;
 
         if (this.appId === '' || this.appCertificate === '') {
             console.log('環境変数 AGORA_APP_ID と AGORA_APP_CERTIFICATE を設定する必要があります');
