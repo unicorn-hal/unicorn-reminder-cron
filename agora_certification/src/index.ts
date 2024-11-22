@@ -1,5 +1,6 @@
 import express from 'express';
 import { AgoraTokenGenerator } from './module/agora/ceretificate';
+import { AuthenticationService } from './module/firebase/authentication_service';
 
 const app = express();
 const port = 8080;
@@ -10,12 +11,31 @@ app.use(express.urlencoded({ extended: true }));
 // CORSとヘッダーの設定
 app.use((_, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.header("Access-Control-Allow-Methods", "GET, POST");
     next();
 });
 
-// BadRequestのバリデーションをミドルウェアに移動
+// 認証ミドルウェア
+app.use(async (req, res, next) => {
+    try {
+        const bearerHeader = req.headers['authorization'];
+        if (!bearerHeader) {
+            res.status(403).send({ error: 'Forbidden' });
+            return;
+        }
+        const bearer = bearerHeader.split(' ');
+        const bearerToken = bearer[1];
+        const authService = new AuthenticationService();
+
+        await authService.verifyIdToken(bearerToken);
+        next();
+    } catch (error) {
+        res.status(403).send({ error: 'Forbidden' });
+    }
+});
+
+// リクエストボディのバリデーション
 app.use((req, res, next) => {
     if (req.body.channelName === undefined || req.body.uid === undefined) {
         res.status(400).json({ error: 'Bad Request' });

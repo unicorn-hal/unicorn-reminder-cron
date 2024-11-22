@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "crypto": "^1.0.1",
-    "firebase-admin": "^12.6.0"
+    "firebase-admin": "^12.7.0"
   }
 }
