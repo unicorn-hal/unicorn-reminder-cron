@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 
 // 各トークンを取得するエンドポイント
-app.post('/api/tokenWithUid', (req, res) => {
+app.post('/api/token', (req, res) => {
     const { channelName, uid } = req.body;
     try {
         const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid);
@@ -37,53 +37,53 @@ app.post('/api/tokenWithUid', (req, res) => {
     }
 });
 
-app.post('/api/tokenWithUserAccount', (req, res) => {
-    const { channelName, uid, account } = req.body;
-    try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
-        const token = agoraTokenGenerator.generateTokenWithUserAccount();
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// app.post('/api/tokenWithUserAccount', (req, res) => {
+//     const { channelName, uid, account } = req.body;
+//     try {
+//         const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
+//         const token = agoraTokenGenerator.generateTokenWithUserAccount();
+//         res.status(200).json({ token });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
-app.post('/api/tokenWithUidAndPrivilege', (req, res) => {
-    const { channelName, uid } = req.body;
-    try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid);
-        const token = agoraTokenGenerator.generateTokenWithUidAndPrivilege();
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// app.post('/api/tokenWithUidAndPrivilege', (req, res) => {
+//     const { channelName, uid } = req.body;
+//     try {
+//         const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid);
+//         const token = agoraTokenGenerator.generateTokenWithUidAndPrivilege();
+//         res.status(200).json({ token });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
-app.post('/api/tokenWithUserAccountAndPrivilege', (req, res) => {
-    const { channelName, uid, account } = req.body;
-    try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
-        const token = agoraTokenGenerator.generateTokenWithUserAccountAndPrivilege();
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// app.post('/api/tokenWithUserAccountAndPrivilege', (req, res) => {
+//     const { channelName, uid, account } = req.body;
+//     try {
+//         const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
+//         const token = agoraTokenGenerator.generateTokenWithUserAccountAndPrivilege();
+//         res.status(200).json({ token });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
-app.post('/api/tokenWithRtm', (req, res) => {
-    const { channelName, uid, account } = req.body;
-    try {
-        const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
-        const token = agoraTokenGenerator.generateTokenWithRtm();
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// app.post('/api/tokenWithRtm', (req, res) => {
+//     const { channelName, uid, account } = req.body;
+//     try {
+//         const agoraTokenGenerator = new AgoraTokenGenerator(channelName, uid, account);
+//         const token = agoraTokenGenerator.generateTokenWithRtm();
+//         res.status(200).json({ token });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
 app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`);

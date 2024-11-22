@@ -46,55 +46,55 @@ export class AgoraTokenGenerator {
         );
     }
 
-    generateTokenWithUserAccount(): string {
-        return RtcTokenBuilder.buildTokenWithUserAccount(
-            this.appId,
-            this.appCertificate,
-            this.channelName,
-            this.account,
-            this.role,
-            this.tokenExpirationInSecond,
-            this.privilegeExpirationInSecond
-        );
-    }
+    // generateTokenWithUserAccount(): string {
+    //     return RtcTokenBuilder.buildTokenWithUserAccount(
+    //         this.appId,
+    //         this.appCertificate,
+    //         this.channelName,
+    //         this.account,
+    //         this.role,
+    //         this.tokenExpirationInSecond,
+    //         this.privilegeExpirationInSecond
+    //     );
+    // }
 
-    generateTokenWithUidAndPrivilege(): string {
-        return RtcTokenBuilder.buildTokenWithUidAndPrivilege(
-            this.appId,
-            this.appCertificate,
-            this.channelName,
-            this.uid,
-            this.tokenExpirationInSecond,
-            this.joinChannelPrivilegeExpireInSeconds,
-            this.pubAudioPrivilegeExpireInSeconds,
-            this.pubVideoPrivilegeExpireInSeconds,
-            this.pubDataStreamPrivilegeExpireInSeconds
-        );
-    }
+    // generateTokenWithUidAndPrivilege(): string {
+    //     return RtcTokenBuilder.buildTokenWithUidAndPrivilege(
+    //         this.appId,
+    //         this.appCertificate,
+    //         this.channelName,
+    //         this.uid,
+    //         this.tokenExpirationInSecond,
+    //         this.joinChannelPrivilegeExpireInSeconds,
+    //         this.pubAudioPrivilegeExpireInSeconds,
+    //         this.pubVideoPrivilegeExpireInSeconds,
+    //         this.pubDataStreamPrivilegeExpireInSeconds
+    //     );
+    // }
 
-    generateTokenWithUserAccountAndPrivilege(): string {
-        return RtcTokenBuilder.buildTokenWithUserAccountAndPrivilege(
-            this.appId,
-            this.appCertificate,
-            this.channelName,
-            this.account,
-            this.tokenExpirationInSecond,
-            this.joinChannelPrivilegeExpireInSeconds,
-            this.pubAudioPrivilegeExpireInSeconds,
-            this.pubVideoPrivilegeExpireInSeconds,
-            this.pubDataStreamPrivilegeExpireInSeconds
-        );
-    }
+    // generateTokenWithUserAccountAndPrivilege(): string {
+    //     return RtcTokenBuilder.buildTokenWithUserAccountAndPrivilege(
+    //         this.appId,
+    //         this.appCertificate,
+    //         this.channelName,
+    //         this.account,
+    //         this.tokenExpirationInSecond,
+    //         this.joinChannelPrivilegeExpireInSeconds,
+    //         this.pubAudioPrivilegeExpireInSeconds,
+    //         this.pubVideoPrivilegeExpireInSeconds,
+    //         this.pubDataStreamPrivilegeExpireInSeconds
+    //     );
+    // }
 
-    generateTokenWithRtm(): string {
-        return RtcTokenBuilder.buildTokenWithRtm(
-            this.appId,
-            this.appCertificate,
-            this.channelName,
-            this.account,
-            this.role,
-            this.tokenExpirationInSecond,
-            this.privilegeExpirationInSecond
-        );
-    }
+    // generateTokenWithRtm(): string {
+    //     return RtcTokenBuilder.buildTokenWithRtm(
+    //         this.appId,
+    //         this.appCertificate,
+    //         this.channelName,
+    //         this.account,
+    //         this.role,
+    //         this.tokenExpirationInSecond,
+    //         this.privilegeExpirationInSecond
+    //     );
+    // }
 }
