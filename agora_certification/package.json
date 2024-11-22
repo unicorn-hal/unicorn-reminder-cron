@@ -1,0 +1,28 @@
+{
+  "name": "agora-certification",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "docker:build:cloud": "docker build --platform linux/amd64 -t gcr.io/unicorn-hal/agora-certification .",
+    "docker:push": "docker push gcr.io/unicorn-hal/agora-certification",
+    "gcloud:config": "gcloud config set project unicorn-hal && gcloud auth configure-docker && gcloud auth configure-docker asia-northeast1-docker.pkg.dev",
+    "gcloud:deploy": "gcloud run deploy agora-certification --image gcr.io/unicorn-hal/agora-certification --platform managed --region asia-northeast1 --allow-unauthenticated",
+    "auth": "npm run gcloud:config && npm run gcloud:activate",
+    "deploy": "npm run build && npm run docker:build:cloud && npm run docker:push && npm run gcloud:deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.1",
+    "express": "^4.21.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "firebase-admin": "^12.7.0"
+  }
+}
