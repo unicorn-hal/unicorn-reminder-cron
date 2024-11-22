@@ -1,5 +1,5 @@
 import express from 'express';
-import { AgoraTokenGenerator } from './ceretificate';
+import { AgoraTokenGenerator } from './module/agora/ceretificate';
 
 const app = express();
 const port = 8080;
