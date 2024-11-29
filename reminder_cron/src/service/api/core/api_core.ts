@@ -31,7 +31,7 @@ export abstract class ApiCore {
         this._endpoint = endpoint;
     }
 
-    async makeHeaders(): Promise<void> {
+    private async _makeHeaders(): Promise<void> {
         this._headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + await this._authService.createToken(),
@@ -40,7 +40,7 @@ export abstract class ApiCore {
     }
 
     protected async get(parameters?: string): Promise<Response> {
-        await this.makeHeaders();
+        await this._makeHeaders();
         const axiosResponse = await this._axios.get(this._baseUrl + this._endpoint + parameters, {
             headers: this._headers,
         });
@@ -52,7 +52,7 @@ export abstract class ApiCore {
     }
 
     protected async post(data: any, parameters?: string): Promise<Response> {
-        await this.makeHeaders();
+        await this._makeHeaders();
         const axiosResponse = await this._axios.post(this._baseUrl + this._endpoint + parameters, data, {
             headers: this._headers,
         });
@@ -64,7 +64,7 @@ export abstract class ApiCore {
     }
 
     protected async put(data: any, parameters?: string): Promise<Response> {
-        await this.makeHeaders();
+        await this._makeHeaders();
         const axiosResponse = await this._axios.put(this._baseUrl + this._endpoint + parameters, data, {
             headers: this._headers,
         });
@@ -76,7 +76,7 @@ export abstract class ApiCore {
     }
 
     protected async delete(parameters?: string): Promise<Response> {
-        await this.makeHeaders();
+        await this._makeHeaders();
         const axiosResponse = await this._axios.delete(this._baseUrl + this._endpoint + parameters, {
             headers: this._headers,
         });
