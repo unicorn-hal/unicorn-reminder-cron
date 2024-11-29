@@ -7,7 +7,7 @@ export interface MedicineRemindersRequest {
 
 export class MedicinesApi extends ApiCore {
     constructor() {
-        super('/medicines');
+        super({ endpoint: '/medicines' });
     }
 
     async getMedicineReminders({ reminderTime, reminderDayOfWeek }: MedicineRemindersRequest): Promise<Response> {
