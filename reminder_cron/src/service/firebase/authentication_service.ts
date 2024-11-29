@@ -7,7 +7,7 @@ export class FirebaseAuthenticationService extends FirebaseCore {
 
     constructor() {
         super();
-        this._auth = auth(this.app);
+        this._auth = auth();
     }
 
     async createToken(): Promise<string> {
