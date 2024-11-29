@@ -1,0 +1,19 @@
+{
+  "name": "reminder-cron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "docker:build:cloud": "docker build --platform linux/amd64 -t gcr.io/unicorn-hal/reminder-cron .",
+    "docker:push": "docker push gcr.io/unicorn-hal/reminder-cron",
+    "gcloud:config": "gcloud config set project unicorn-hal && gcloud auth configure-docker && gcloud auth configure-docker asia-northeast1-docker.pkg.dev",
+    "push": "npm run build && npm run docker:build:cloud && npm run docker:push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
