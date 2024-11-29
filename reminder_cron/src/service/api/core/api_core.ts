@@ -1,5 +1,7 @@
 import { FirebaseAuthenticationService } from "../../firebase/authentication_service";
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export interface Headers {
     [key: string]: string;
@@ -19,9 +21,8 @@ export abstract class ApiCore {
     private _parameters: string;
     private _headers: Headers;
 
-    constructor(endpoint: string, parameters: string) {
+    constructor(endpoint: string) {
         this._endpoint = endpoint;
-        this._parameters = parameters;
     }
 
     async makeHeaders(): Promise<void> {
@@ -32,8 +33,9 @@ export abstract class ApiCore {
         }
     }
 
-    async get(): Promise<Response> {
+    protected async get(parameters?: string): Promise<Response> {
         await this.makeHeaders();
+        this._parameters ??= parameters;
         const axiosResponse = await this._axios.get(this._baseUrl + this._endpoint + this._parameters, {
             headers: this._headers,
         });
@@ -44,8 +46,9 @@ export abstract class ApiCore {
         return response;
     }
 
-    async post(data: any): Promise<Response> {
+    protected async post(data: any, parameters?: string): Promise<Response> {
         await this.makeHeaders();
+        this._parameters ??= parameters;
         const axiosResponse = await this._axios.post(this._baseUrl + this._endpoint, data, {
             headers: this._headers,
         });
@@ -56,8 +59,9 @@ export abstract class ApiCore {
         return response;
     }
 
-    async put(data: any): Promise<Response> {
+    protected async put(data: any, parameters?: string): Promise<Response> {
         await this.makeHeaders();
+        this._parameters ??= parameters;
         const axiosResponse = await this._axios.put(this._baseUrl + this._endpoint, data, {
             headers: this._headers,
         });
@@ -68,9 +72,10 @@ export abstract class ApiCore {
         return response;
     }
 
-    async delete(): Promise<Response> {
+    protected async delete(parameters?: string): Promise<Response> {
         await this.makeHeaders();
-        const axiosResponse = await this._axios.delete(this._baseUrl + this._endpoint, {
+        this._parameters ??= parameters;
+        const axiosResponse = await this._axios.delete(this._baseUrl + this._endpoint + this._parameters, {
             headers: this._headers,
         });
         const response: Response = {

@@ -1,5 +1,7 @@
 import { App, getApps, initializeApp, cert } from "firebase-admin/app";
 import serviceAccount from '../../../config/firebase/serviceAccountKey.json';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class FirebaseCore {
     private _app: App;
