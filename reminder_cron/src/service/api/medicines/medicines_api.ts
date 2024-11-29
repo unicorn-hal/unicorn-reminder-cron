@@ -6,6 +6,10 @@ export interface MedicineRemindersRequest {
     reminderDayOfWeek: reminderDayOfWeek;
 }
 
+export interface MedicineReminder {
+    fcmTokenId: string;
+}
+
 export class MedicinesApi extends ApiCore {
     constructor() {
         super({ endpoint: '/medicines' });
@@ -18,12 +22,14 @@ export class MedicinesApi extends ApiCore {
      */
     async getMedicineReminders(date: Date): Promise<Response> {
         const request: MedicineRemindersRequest = this._makeReminderRequest(date);
+        console.log(`Requesting medicine reminders for ${request.reminderDayOfWeek} at ${request.reminderTime}`);
+
         return await this.get('/reminders?reminderTime=' + request.reminderTime + '&reminderDayOfWeek=' + request.reminderDayOfWeek);
     }
 
     private _makeReminderRequest(date: Date): MedicineRemindersRequest {
-        const reminderTime = date.getHours() + ':' + date.getMinutes();
-        const reminderDayOfWeek = this._getDayOfWeek(date);
+        const reminderTime: string = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+        const reminderDayOfWeek: reminderDayOfWeek = this._getDayOfWeek(date);
         return { reminderTime, reminderDayOfWeek };
     }
 
