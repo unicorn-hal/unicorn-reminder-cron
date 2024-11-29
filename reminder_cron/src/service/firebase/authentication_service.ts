@@ -1,17 +1,24 @@
 import { FirebaseCore } from "./core/firebase_core";
-import { auth } from "firebase-admin";
-
+import { Auth, getAuth, signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
+import dotenv from 'dotenv';
+dotenv.config();
 export class FirebaseAuthenticationService extends FirebaseCore {
-    private _auth: auth.Auth;
-    private _uid: string = process.env.CRON_UID;
+    private _auth: Auth;
+    private _userCredential: UserCredential;
 
     constructor() {
         super();
-        this._auth = auth();
+        this._auth = getAuth(this.app);
+    }
+
+    async _singIn(): Promise<void> {
+        this._userCredential = await signInWithEmailAndPassword(this._auth, process.env.CRON_EMAIL, process.env.CRON_PASSWORD);
     }
 
     async createToken(): Promise<string> {
-        const customToken = await this._auth.createCustomToken(this._uid);
-        return customToken;
+        if (!this._userCredential) {
+            await this._singIn();
+        }
+        return await this._userCredential.user.getIdToken();
     }
 }

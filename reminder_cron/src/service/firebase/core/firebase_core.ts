@@ -1,16 +1,16 @@
-import { App, getApps, initializeApp, cert } from "firebase-admin/app";
-import serviceAccount from '../../../config/firebase/serviceAccountKey.json';
+import { FirebaseApp, getApps, initializeApp } from "firebase/app";
+import firebaseConfig from '../../../config/firebase/firebaseConfig.json';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export class FirebaseCore {
-    private _app: App;
+    private _app: FirebaseApp;
 
     constructor() {
         this._initializeApp();
     }
 
-    get app(): App {
+    get app(): FirebaseApp {
         return this._app;
     }
 
@@ -29,12 +29,6 @@ export class FirebaseCore {
             return;
         }
 
-        this._app = initializeApp({
-            credential: cert({
-                projectId: serviceAccount.project_id,
-                clientEmail: serviceAccount.client_email,
-                privateKey: serviceAccount.private_key,
-            }),
-        });
+        this._app = initializeApp(firebaseConfig);
     }
 }
