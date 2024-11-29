@@ -3,7 +3,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export type baseUrl = "unicorn-monorepo" | "notification-server";
+type baseUrl = "unicorn-monorepo" | "notification-server";
 export interface ApiCoreMetadata {
     baseUrl?: baseUrl;
     endpoint: string;
