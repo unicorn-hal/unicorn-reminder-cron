@@ -21,9 +21,9 @@ export class MedicinesApi extends ApiCore {
      * @returns 
      */
     async getMedicineReminders(date: Date): Promise<Response> {
-        const request: MedicineRemindersRequest = this._makeReminderRequest(date);
-        console.log(`Requesting medicine reminders for ${request.reminderDayOfWeek} at ${request.reminderTime}`);
+        console.log('[GET] /reminders');
 
+        const request: MedicineRemindersRequest = this._makeReminderRequest(date);
         return await this.get('/reminders?reminderTime=' + request.reminderTime + '&reminderDayOfWeek=' + request.reminderDayOfWeek);
     }
 
