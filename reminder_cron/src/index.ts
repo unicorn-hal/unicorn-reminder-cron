@@ -1,13 +1,15 @@
 import { MedicinesApi, MedicineReminder } from "./service/api/medicines/medicines_api";
 import { NotificationApi } from "./service/api/notification/notification_api";
 
-const now: Date = new Date();
+const timeZone = 'Asia/Tokyo';
+const nowUtc = new Date();
+const now: Date = new Date(nowUtc.toLocaleString('en-US', { timeZone: timeZone }));
 // const now: Date = new Date('2024-12-02T12:00:01Z'); // Debug
 const medicinesApi = new MedicinesApi();
 const notificationApi = new NotificationApi();
 
 const main = async () => {
-    console.log(`Cron job started at ${now.toISOString()}`);
+    console.log(`Cron job started at ${now}`);
 
     // おくすりリマインダーの通知を送信
     await sendMedicineReminders();
