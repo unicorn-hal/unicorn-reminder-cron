@@ -22,3 +22,8 @@ services:
     build: ./agora_certification/.
     ports:
       - "8080:8080"
+
+  reminder_cron:
+    build: ./reminder_cron/.
+    ports:
+      - "8080:8080"
