@@ -1,8 +1,8 @@
 import { MedicinesApi, MedicineReminder } from "./service/api/medicines/medicines_api";
 import { NotificationApi } from "./service/api/notification/notification_api";
 
-// const now: Date = new Date();
-const now: Date = new Date('2024-12-02T12:00:01Z'); // Debug
+const now: Date = new Date();
+// const now: Date = new Date('2024-12-02T12:00:01Z'); // Debug
 const medicinesApi = new MedicinesApi();
 const notificationApi = new NotificationApi();
 
