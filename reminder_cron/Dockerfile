@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # 環境変数を設定
 ENV PORT 3000
+ENV TZ Asia/Tokyo
 
 # パッケージ定義ファイルをコピーして、依存関係をインストール
 COPY package*.json ./
