@@ -19,6 +19,9 @@ export class FirebaseAuthenticationService extends FirebaseCore {
         if (!this._userCredential) {
             await this._singIn();
         }
-        return await this._userCredential.user.getIdToken();
+        if (!this._userCredential.user.emailVerified) {
+            await this._userCredential.user.reload();
+        }
+        return await this._userCredential.user.getIdToken(true);
     }
 }
