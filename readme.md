@@ -1,131 +1,73 @@
-# Unicornテスト用サーバー
+# リマインダー スクリプト - 仕様書
 
-フロントエンド実装で利用する機能のテストを行うためのリポジトリです。
-Dockerコンテナで機能を分割して利用します。
+このプロジェクトは、Google Cloud Run Schedulerを使用して定期的に実行されるリマインダー送信サービスです。毎時0分、15分、30分、45分に実行され、ユーザーに対しておくすりリマインダーや定期検診の通知を送信します。
 
-## CloudMessaging
+## 実行スケジュール
 
-Firebase Cloud Messegingを利用して、フロントエンドにプッシュ通知を提供するサーバーです。
+- **実行時間**: 毎時 0分、15分、30分、45分
+- **スケジューラ**: Cloud Run Scheduler
 
-### コンテナスペック
+## 機能詳細
 
-- Node.js v18.20.3
-- TypeScript v5.6.3
-- Express.js v4.21.1
+### おくすりリマインダーの送信
 
-### API仕様 
+- 指定時間におくすりの服用を促す通知を該当ユーザーに送信します。
+- ユーザーのFCMトークンを取得し、Firebase Cloud Messagingを通じてプッシュ通知を行います。
 
-最終更新: 2024/10/24
+### 定期検診の通知送信
 
-#### [POST] /send
+- 毎日12時に定期検診のリマインダーを全ユーザーに送信します。
+- トピック機能を利用し、購読者全員に一斉通知を送信します。
 
-**Explain**
+## 環境設定
 
-指定FCMTokenを持つ単体デバイスにメッセージを送信します。
+### 必要な環境変数
 
-**Parameters**
+- `CRON_EMAIL`: Firebase認証用のメールアドレス
+- `CRON_PASSWORD`: Firebase認証用のパスワード
+- `CRON_UID`: FirebaseユーザーのUID
+- `NOTIFICATION_SERVER_URL`: 通知サーバーのベースURL
+- `UNICORN_MONOREPO_URL`: サーバーAPIのベースURL
 
-body
-```
-token: <String> デバイスから発行されるFCMToken
-title: <String> 通知タイトル
-body:  <String> 通知本文
-```
+### 必要なファイル
 
-**Response**
+- `firebaseConfig.json`: Firebaseプロジェクトの設定ファイル
 
-**200** : Success
+※これらのファイルはセキュリティ上、Gitリポジトリには含めず、個別に配置してください。
 
-**400** : Invalid token (トークン未設定)
+## ビルドとデプロイ
 
-**500** : Internal Server Error
+### ローカルでのテスト実行
 
----
+必要に応じて `index.ts` でデバッグ用のDateTimeに調整してから実行をおすすめします。
 
-#### [POST] /multicast
+1. docker-composeを利用して実行
 
-**Explain**
+   ```bash
+   docker-compose up --build
+   ```
 
-指定FCMTokenを持つ複数デバイスにメッセージを送信します。
+### Cloud Runへのデプロイ
 
-**Parameters**
+1. Dockerイメージをビルドし、コンテナレジストリにプッシュ
 
-body
-```
-tokens: <String[]> デバイスから発行されるFCMToken配列
-title:  <String>   通知タイトル
-body:   <String>   通知本文
-```
+   ```bash
+   npm run push
+   ```
 
-**Response**
+2. Cloud Run上でサービスを作成し、スケジューラを設定
 
-**200** : Success
+## 使用技術
 
-**400** : Invalid tokens (トークン未設定)
+- **言語**: TypeScript
+- **ランタイム**: Node.js v18
+- **主要ライブラリ**:
+  - Firebase
+  - Axios
 
-**500** : Internal Server Error
+## 注意事項
 
----
-
-#### [POST] /topic
-
-**Explain**
-
-指定トピックを購読しているすべてのデバイスにメッセージを送信します。
-
-**Parameters**
-
-body
-```
-topic: <String> トピック名
-title: <String> 通知タイトル
-body:  <String> 通知本文
-```
-
-**Response**
-
-**200** : Success
-
-**400** : Invalid topic (未定義のトピック)
-
-**500** : Internal Server Error
+- 環境変数や秘密情報は、適切に管理してください。
+- Firebase関連の設定や認証情報は、適切な場所に配置してください。
 
 ---
-
-#### [POST] /subscribe
-
-**Explain**
-
-指定FCMTokenを持つデバイスに指定トピックを購読します。
-
-**Parameters**
-
-body
-```
-tokens: <String[]> デバイスから発行されるFCMToken配列
-topic:  <String>   トピック名
-```
-
-**Response**
-
-**200** : Success
-
-**400** : Invalid topic (未定義のトピック)
-
-**500** : Internal Server Error
-
----
-
-#### [GET] /subscribe/topic
-
-**Explain**
-
-購読可能なトピックの配列を取得します。
-
-**Response**
-
-**200** : Success
-
-**404** : No topics found (トピック購読不可)
-
-**500** : Internal Server Error
