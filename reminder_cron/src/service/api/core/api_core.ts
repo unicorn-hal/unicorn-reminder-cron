@@ -1,7 +1,5 @@
 import { FirebaseAuthenticationService } from "../../firebase/authentication_service";
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
 
 type baseUrl = "unicorn-monorepo" | "notification-server";
 export interface ApiCoreMetadata {

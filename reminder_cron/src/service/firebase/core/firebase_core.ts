@@ -1,7 +1,5 @@
 import { FirebaseApp, getApps, initializeApp } from "firebase/app";
 import firebaseConfig from '../../../config/firebase/firebaseConfig.json';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export class FirebaseCore {
     private _app: FirebaseApp;

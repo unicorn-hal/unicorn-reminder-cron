@@ -1,7 +1,6 @@
 import { FirebaseCore } from "./core/firebase_core";
 import { Auth, getAuth, signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
-import dotenv from 'dotenv';
-dotenv.config();
+
 export class FirebaseAuthenticationService extends FirebaseCore {
     private _auth: Auth;
     private _userCredential: UserCredential;
